@@ -1,8 +1,22 @@
+require 'set'
+
 def eratos(max_num)
   # ステップ1　探索リストの作成
-  number_range = []
-  (1..max_num).each do |num|
-    number_range << num
+  search_list = []
+  (2..max_num).each do |num|
+    search_list << num
   end
-  p number_range
+
+  # ステップ2, 3 探索リストのふるい落とし
+  i = 0
+  while search_list[i] < Math.sqrt(max_num)
+    search_list.each do |composit_num|
+      if composit_num > search_list[i] && (composit_num % search_list[i]).zero?
+        search_list.delete(composit_num)
+      end
+    end
+    i+= 1
+  end
+  search_list.join(', ')
 end
+
